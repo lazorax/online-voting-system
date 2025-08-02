@@ -1,1 +1,57 @@
 /build/
+# ====================
+# Java/Eclipse Project
+# ====================
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Eclipse project files
+.settings/
+.project
+.classpath
+
+# VS Code settings (if used)
+.vscode/
+
+# Maven / Gradle
+target/
+build/
+dist/
+
+# OS junk files
+.DS_Store
+Thumbs.db
+
+# Tomcat and server configs
+Servers/
+.metadata/
+tmp/
+wtpwebapps/
+.apt_generated/
+.factorypath
+
+# Database configs or JDBC secrets (if stored locally)
+**/DButil.java     # if DB password is hardcoded (or create a separate config file and ignore it)
+*.env
+
+# IntelliJ (if you're using it too)
+.idea/
+*.iml
+out/
+
+# Node (if you use any JS dependencies later)
+node_modules/
+
+# Backup or temp files
+*.swp
+*~
+*.bak
