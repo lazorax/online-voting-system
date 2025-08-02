@@ -55,3 +55,4 @@ node_modules/
 *.swp
 *~
 *.bak
+db_config.properties
