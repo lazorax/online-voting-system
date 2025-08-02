@@ -1,30 +1,22 @@
 package com.onlineVoting;
-
-import java.io.InputStream;
 import java.sql.*;
-import java.util.Properties;
+
 
 public class DButil {
-    private static Connection conn;
+	private static final String URL = "jdbc:mysql://localhost:3306/onlinevoting";
+	private static final String USER ="root";
+	private static final String PASSWORD = "root";
+	 static {
+	        try {
+	            Class.forName("com.mysql.cj.jdbc.Driver");
+	        } catch (ClassNotFoundException e) {
+	            throw new RuntimeException("Failed to load MySQL driver", e);
+	        }
+	    }
+	    
+	    public static Connection getConnection() throws SQLException {
+	        return DriverManager.getConnection(URL, USER, PASSWORD);
+	    
+	}
 
-    public static Connection getConnection() {
-        if (conn != null) return conn;
-
-        try {
-            Properties props = new Properties();
-            InputStream input = DButil.class.getClassLoader().getResourceAsStream("db_config.properties");
-            props.load(input);
-
-            String url = props.getProperty("db.url");
-            String user = props.getProperty("db.user");
-            String password = props.getProperty("db.password");
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection(url, user, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return conn;
-    }
 }
