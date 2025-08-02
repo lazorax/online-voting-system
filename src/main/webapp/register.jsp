@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,7 +12,7 @@
 <body>
   <div class="login-container">
     <h2>Create Your Account</h2>
-    <form action="RegisterServlet" method="post">
+    <form action="register" method="post">
       <div class="form-group">
         <label for="email">Email address</label>
         <input type="email" id="email" name="email" required />
@@ -34,6 +35,16 @@
 
       <button type="submit" class="btn-login">Register</button>
     </form>
+    <%
+    String error = (String) request.getAttribute("error");
+        		System.out.println(">>> inside register.jsp "+error);
+    if (error != null) {
+%>
+    <div class="alert alert-error"><%= error %></div>
+<%
+    }
+%>
+    
 
     <p class="register-link">Already have an account? <a href="login.jsp">Login here</a></p>
   </div>
