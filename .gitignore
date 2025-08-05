@@ -56,3 +56,4 @@ node_modules/
 *~
 *.bak
 db_config.properties
+/bin/
