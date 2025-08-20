@@ -26,7 +26,7 @@ public class registerServlet extends HttpServlet {
             throws ServletException, IOException {
         System.out.println(">>> Received POST request for register");
 
-        String email = request.getParameter("email"); // Should probably be request.getParameter("email");
+        String email = request.getParameter("email"); 
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
@@ -39,7 +39,7 @@ public class registerServlet extends HttpServlet {
         }
 
         try (Connection conn = DButil.getConnection()) {
-            String checkSql = "SELECT voterId FROM users WHERE email = ?";
+            String checkSql = "SELECT userId FROM users WHERE email = ?";
             try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
                 checkStmt.setString(1, email);
                 ResultSet rs = checkStmt.executeQuery();
@@ -53,7 +53,7 @@ public class registerServlet extends HttpServlet {
                 }
             }
 
-            String sql = "INSERT INTO users (email, user_name, password) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (email, userName, password) VALUES (?, ?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setString(1, email);
                 stmt.setString(2, name);
@@ -66,7 +66,7 @@ public class registerServlet extends HttpServlet {
 
             }
         } catch (SQLException e) {
-            e.printStackTrace(); // Log the stack trace in the console
+            e.printStackTrace(); 
             System.out.println(">>> Database error occurred");
             request.setAttribute("error", "Database error occurred");
             request.getRequestDispatcher("register.jsp").forward(request, response);

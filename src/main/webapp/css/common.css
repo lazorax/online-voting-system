@@ -1,15 +1,19 @@
 @charset "UTF-8";
-/*color pallet-----]
---oxford-blue: #00072dff;
---penn-blue: #001c55ff;
---royal-blue-traditional: #0a2472ff;
---bice-blue: #0e6ba8ff;
---non-photo-blue: #a6e1faff;
-*/
+
+/* ===== Color Palette ===== */
+:root {
+    --oxford-blue: #00072d;
+    --penn-blue: #001c55;
+    --royal-blue-traditional: #0a2472;
+    --bice-blue: #0e6ba8;
+    --non-photo-blue: #a6e1fa;
+    --header-bgcolor: #004080;
+}
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+   font-family: "Segoe UI", sans-serif;
 }
 
 body {
@@ -20,7 +24,7 @@ body {
 
 
 header {
-  background-color: #004080;
+  background-color: var(--header-bgcolor);
   color: white;
   padding: 15px 30px;
 }
@@ -51,7 +55,12 @@ nav ul li a {
 main {
   padding: 50px 30px;
   text-align: center;
-  height: 78vh;
+  min-height: 78vh;
+}
+
+.welcome{
+	margin-bottom:50px;
+	
 }
 
 .welcome h1 {
@@ -93,6 +102,54 @@ main {
   margin: 10px 0;
 }
 
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .card {
+      flex: 1 1 calc(30% - 20px);
+      background: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 20px;
+      min-width: 250px;
+      max-width: 350px;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      color: #b30000;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #333;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .card img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 10px;
+    }
+
+
+
+    @media (max-width: 768px) {
+      .card {
+        flex: 1 1 100%;
+      }
+    }
 footer {
   margin-top: 50px;
   background-color: #003366;

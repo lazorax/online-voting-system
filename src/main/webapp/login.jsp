@@ -28,8 +28,7 @@
       <button type="submit" class="btn-login">Login</button>
     </form>
     <%
-    String success = (String) request.getAttribute("success");
-        		System.out.println(">>> inside login.jsp success"+success);   		
+    String success = (String) request.getAttribute("success"); 		
     if (success != null) {
 %>
     <div class="alert alert-success"><%= success %></div>
@@ -38,7 +37,6 @@
 %>
   <%
     String error = (String) request.getAttribute("error");
-        		System.out.println(">>> inside login.jsp error "+error);
     if (error != null) {
 %>
     <div class="alert alert-error"><%= error %></div>

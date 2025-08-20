@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+.main {
+    display: flex;
+    height: calc(100vh - 60px);
+}
+
+.left {
+    width: 30%;
+    padding: 20px;
+    background-color: #f4f4f4;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+}
+
+.right {
+    width: 70%;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.card {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+}
+
+.card p {
+    margin: 5px 0;
+}
+ .msg-box {
+            position: fixed;          /* stays on screen even if you scroll */
+        top: 80px;               /* adjust based on navbar height */
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;           /* higher than everything else */
+        
+        min-width: 300px;
+        max-width: 600px;
+        padding: 16px 20px;
+        border-radius: 10px;
+        font-family: Arial, sans-serif;
+        font-size: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        text-align: center;
+        cursor: pointer;
+
+        animation: fadeIn 0.5s ease;
+        }
+  .msg-success {
+        background-color: #e6ffed;
+        border: 1px solid #28a745;
+        color: #155724;
+    }
+    #refCode{
+    padding:10px;
+    text-align:center;
+    }
+    #copyTextBtn{
+    	border:1px solid #008040;
+    	border-radius:5px;
+    	padding:10px;
+    	font-weight:700;
+    }

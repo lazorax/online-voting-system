@@ -1,9 +1,16 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="jakarta.tags.core" prefix="c" %>
+<%@ taglib uri="jakarta.tags.functions" prefix="fn" %>
+
+
+
 <%@ page import="java.util.*" %>
 <%@ page session="true" %>
 <%
-Integer  voterId = (Integer ) session.getAttribute("voterId");
+Integer  userId = (Integer ) session.getAttribute("userId");
     String username = (String) session.getAttribute("username");
-    if (voterId== null || username == null) {
+       System.out.println("session id : " + session.getId()+" is on dashboard");
+    if (userId== null || username == null) {
         response.sendRedirect("login.jsp");
         return;
     }
@@ -11,148 +18,51 @@ Integer  voterId = (Integer ) session.getAttribute("voterId");
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Dashboard</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #003366;
-            padding: 10px 20px;
-            color: white;
-        }
-
-        .navbar .nav-left button,
-        .navbar .menu-dropdown a {
-            background-color: #0055aa;
-            border: none;
-            padding: 10px 15px;
-            color: white;
-            cursor: pointer;
-            margin-right: 10px;
-            border-radius: 4px;
-        }
-        a{
-        	margin-top:10px;
-        }
-
-        .menu {
-            position: relative;
-            display: inline-block;
-        }
-
-        .menu-icon {
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .menu-dropdown {
-            display: none;
-            position: absolute;
-            right: 0;
-            background-color: white;
-            color: black;
-            box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
-            min-width: 200px;
-            z-index: 1;
-            padding:10px;
-        }
-
-        .menu-dropdown a {
-            display: block;
-            padding: 10px;
-            text-decoration: none;
-            color: black;
-        }
-
-        .menu-dropdown a:hover {
-            background-color: #ddd;
-        }
-
-        .menu:hover .menu-dropdown {
-            display: block;
-        }
-
-        /* Main content */
-        .main {
-            display: flex;
-            height: calc(100vh - 60px);
-        }
-
-        .left {
-            width: 30%;
-            padding: 20px;
-            background-color: #f4f4f4;
-            overflow-y: auto;
-            border-right: 1px solid #ccc;
-        }
-
-        .right {
-            width: 70%;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .card {
-            background-color: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-        }
-
-        .card p {
-            margin: 5px 0;
-        }
-    </style>
+    <title> Dashboard </title>
+    
+   	<link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-
-    <!-- Navbar -->
-    <div class="navbar">
-        <div class="nav-left">
-            <button onclick="location.href='applyVote.jsp'">Apply for Vote</button>
-            <button onclick="location.href='conductElection.jsp'">Conduct Election</button>
+<jsp:include page="navbar.jsp" /><!--  
+<p>DEBUG: myElections = ${voteElections}</p>
+<p>DEBUG: size = ${fn:length(voteElections)}</p>-->
+ <!--notification -->
+  <% 
+        String msg = request.getParameter("msg");
+         String refCode  = request.getParameter("refcode");
+        if (msg != null) { 
+    %>
+        <div id="msgBox" class="msg-box msg-success">
+            <%= msg %><br>
+            
+            <%if(refCode != null && !refCode.trim().isEmpty()){ %>
+            <div id="refCode"><%= refCode %></div>
+            <button id="copyTextBtn">copy to clipboard</button>
+            <%} %>
         </div>
-        <div class="menu">
-            <span class="menu-icon">&#9776;</span>
-            <div class="menu-dropdown">
-                <a href="#">User</a>
-                <a href="logout.jsp">Logout</a>
-                <a href="#">Help & Support</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main content -->
+  
+ <%} %>
+    <!-- Main content --> 
     <div class="main">
         <!-- Left: Elections Conducted by User -->
         <div class="left">
             <h2>Your Elections</h2>
-
-            <div class="card">
-                <h3>Local Ward Election</h3>
-                <p>Date: 2025-07-30</p>
-                <p>Status: Completed</p>
+       <c:forEach var="e" items="${myElections}">
+        <div class="card">
+            <h3>${e.title}</h3>
+            <p>Date: ${e.date}</p>
+            <p>Status: ${e.status}</p>
+             <c:choose>
+            <c:when test="${e.status eq 'completed'}">
                 <p>Result: Declared</p>
-            </div>
-
-            <div class="card">
-                <h3>School Board Vote</h3>
-                <p>Date: 2025-08-15</p>
-                <p>Status: Scheduled</p>
+            </c:when>
+            <c:otherwise>
                 <p>Result: -</p>
-            </div>
+            </c:otherwise>
+        </c:choose>
+            
+        </div>
+    </c:forEach>
 
         </div>
 
@@ -160,7 +70,7 @@ Integer  voterId = (Integer ) session.getAttribute("voterId");
         <div class="right">
             <h2>Elections You Can Vote In</h2>
 
-            <div class="card">
+       <!--     <div class="card">
                 <h3>State Assembly</h3>
                 <p>Date: 2025-08-10</p>
                 <p>Status: Upcoming</p>
@@ -174,8 +84,61 @@ Integer  voterId = (Integer ) session.getAttribute("voterId");
                 <p>Result: Pending</p>
             </div>
 
-        </div>
-    </div>
+        </div> --> 
+      
+        <c:forEach var="ev" items="${voteElections}">
+        		<div class="card">
+        			  <h3>${ev.title}</h3>
+        			  <p>Date: ${ev.date}</p>
+        			  <p>Status: ${ev.status}</p>
+        			  <c:choose>
+        			  	<c:when test="${ev.status eq 'completed'}">
+        			  		<p>Result: Declared</p>
+        			  	</c:when>
+        			  	<c:otherwise>
+        			  		<p>Result: -</p>
+        			  	</c:otherwise>
+        			  </c:choose>
+        		</div>
+        </c:forEach>
+        
+    </div> 
+    
+    
+ <script>
+ const alertBox = document.getElementById("msgBox");
+ const copyTextBtn = document.getElementById("copyTextBtn");
 
+ /*document.addEventListener("click", () => {
+     if (alertBox) {
+         alertBox.style.display = "none";
+     }
+ });*/
+
+ setTimeout(() => {
+     if (alertBox) {
+         alertBox.style.display = "none";
+     }
+ }, 7000);
+ 
+ copyTextBtn.addEventListener("click",()=>{
+	 let refcode =  document.getElementById("refCode").innerText
+	 console.log(refcode)
+	 navigator.clipboard.writeText(refcode)
+	 .then(()=>{
+		 if (alertBox) {
+	         alertBox.style.display = "none";
+	     }
+		 alert("Reference code copied to clipboard");
+
+	 })  .catch(err => {
+		 if (alertBox) {
+	         alertBox.style.display = "none";
+	     }
+         console.error("Failed to copy:", err);
+         alert("Failed to copy the reference code.");
+     });
+ })
+    </script>
 </body>
 </html>

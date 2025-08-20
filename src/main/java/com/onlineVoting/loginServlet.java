@@ -1,8 +1,6 @@
 package com.onlineVoting;
 
 import java.io.IOException;
-//import java.sql.Connection;
-//import java.sql.PreparedStatement;
 import java.sql.*;
 
 import jakarta.servlet.ServletException;
@@ -23,7 +21,7 @@ public class loginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,HttpServletResponse response ) 
 	throws ServletException,IOException{
 		
-	    System.out.println(">>> Received POST request for login");
+//	    System.out.println(">>> Received POST request for login");
 	    String email = request.getParameter("email");
 	    String password = request.getParameter("password");
 	    
@@ -37,19 +35,20 @@ public class loginServlet extends HttpServlet {
 
             if (rs.next()) {
                 String dbPassword = rs.getString("password");
-                String username = rs.getString("user_name");
-                int voterId = rs.getInt("voterId");
+                String username = rs.getString("username");
+                int userId = rs.getInt("user_id");
+                
                 
 
                 if (password.equals(dbPassword)) {
-                    // ✅ Password matched
+                    //password matched
                     HttpSession session = request.getSession();
-                    session.setAttribute("voterId", voterId);
+                    session.setAttribute("userId", userId);
                     session.setAttribute("username", username);
-                    System.out.println(">>> LOgin successful" + username);
-                    response.sendRedirect("dashboard.jsp");
+                    System.out.println(">>> LOgin successful : " + username);
+                    response.sendRedirect("dashboard");
                 } else {
-                    // ❌ Wrong password
+                    // wrong password
                     request.setAttribute("error", "Invalid email or password");
                     request.getRequestDispatcher("login.jsp").forward(request, response);
                 }
