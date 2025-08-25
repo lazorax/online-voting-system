@@ -12,8 +12,8 @@
             <div class="menu">
             <span class="menu-icon">&#9776;</span>
             <div class="menu-dropdown">
-                <a href="#">User</a>
-                <a href="logout">Logout</a>
+                
+                <a href="LogoutServlet">Logout</a>
                 <a href="#">Help & Support</a>
             </div>
         </div>
