@@ -39,7 +39,7 @@ public class registerServlet extends HttpServlet {
         }
 
         try (Connection conn = DButil.getConnection()) {
-            String checkSql = "SELECT userId FROM users WHERE email = ?";
+            String checkSql = "SELECT user_id FROM users WHERE email = ?";
             try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
                 checkStmt.setString(1, email);
                 ResultSet rs = checkStmt.executeQuery();
