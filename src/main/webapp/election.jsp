@@ -1,50 +1,39 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.onlineVoting.model.Candidate" %>
-<%@ page import="com.onlineVoting.model.Voter" %>
-<%
-    List<Candidate> candidates = (List<Candidate>) request.getAttribute("candidates");
-    List<Voter> voters = (List<Voter>) request.getAttribute("voters");
-    String electionName = (String) request.getAttribute("electionName");
-    Integer electionId = (Integer) request.getAttribute("electionId");
-%>
-
-
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Election Management</title>
-    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Online Voting - Election</title>
     <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        th, td {
-            padding: 8px;
-            border: 1px solid #ddd;
-        }
-        .candidate-photo {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-        }
+        table { border-collapse: collapse; width: 90%; margin: 20px auto; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+        th { background: #f4f4f4; }
+        img { border-radius: 8px; }
     </style>
 </head>
 <body>
-<jsp:include page="navbar.jsp" />
-<%
-	String msg = request.getParameter("msg");
-	String refCode = request.getParameter("refcode");
-	if (msg != null) {%>
-		<div id="msgBox" class="msg-box msg-success">
-		<%=msg%><br></div>
-	<% }
-	%>
-	
-    <h2>Election: <%= electionName %> :  ${refCode}</h2>
+    <h2>Election: ${electionName} (ID: ${electionId})</h2>
+    <p>Status: ${status} | Date: ${date} | Ref Code: ${refCode} | Result: ${result}</p>
+    <div style="display: flex; justify-content: flex-end; gap: 10px; margin: 10px 40px;">
+    <form action="ElectionStatusServlet" method="post" style="display:inline;">
+        <input type="hidden" name="electionId" value="${electionId}"/>
+        <input type="hidden" name="action" value="start"/>
+        <button type="submit" 
+                style="background: green; color: white; padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer;">
+            Start Election
+        </button>
+    </form>
 
-    <!-- Candidate List -->
+    <form action="ElectionStatusServlet" method="post" style="display:inline;">
+        <input type="hidden" name="electionId" value="${electionId}"/>
+        <input type="hidden" name="action" value="end"/>
+        <button type="submit" 
+                style="background: red; color: white; padding: 8px 14px; border: none; border-radius: 6px; cursor: pointer;">
+            End Election
+        </button>
+    </form>
+</div>
+    
+
     <h3>Candidates</h3>
     <table>
         <tr>
@@ -54,24 +43,19 @@
             <th>Education</th>
             <th>Info</th>
         </tr>
-        <%
-            if (candidates != null) {
-                for (Candidate c : candidates) {
-        %>
-        <tr>
-            <td><img src="ShowImageServlet?id=<%= c.getCandidateId() %>" class="candidate-photo"></td>
-            <td><%= c.getFullname() %></td>
-            <td><%= c.getAge() %></td>
-            <td><%= c.getEducation() %></td>
-            <td><%= c.getInfo() %></td>
-        </tr>
-        <%
-                }
-            }
-        %>
+        <c:forEach var="candidate" items="${candidates}">
+            <tr>
+                <td>
+                    <img src="candidateImage?id=${candidate.candidateId}" width="100" height="100"/>
+                </td>
+                <td>${candidate.fullname}</td>
+                <td>${candidate.age}</td>
+                <td>${candidate.education}</td>
+                <td>${candidate.info}</td>
+            </tr>
+        </c:forEach>
     </table>
 
-    <!-- Voter List -->
     <h3>Registered Voters</h3>
     <table>
         <tr>
@@ -80,26 +64,19 @@
             <th>Registered At</th>
             <th>Action</th>
         </tr>
-        <%
-            if (voters != null) {
-                for (Voter v : voters) {
-        %>
-        <tr>
-            <td><%= v.getVoterId() %></td>
-            <td><%= v.getUsername() %></td>
-            <td><%= v.getRegisteredAt() %></td>
-            <td>
-                <form action="RemoveVoterServlet" method="post">
-                    <input type="hidden" name="voterId" value="<%= v.getVoterId() %>">
-                    <input type="hidden" name="electionId" value="<%= electionId %>">
-                    <button type="submit">Remove</button>
-                </form>
-            </td>
-        </tr>
-        <%
-                }
-            }
-        %>
+        <c:forEach var="voter" items="${voters}">
+            <tr>
+                <td>${voter.voterId}</td>
+                <td>${voter.username}</td>
+                <td>${voter.registeredAt}</td>
+                <td>
+                    <form action="RemoveVoterServlet" method="post">
+                        <input type="hidden" name="id" value="${voter.id}"/>
+                        <button type="submit">Remove</button>
+                    </form>
+                </td>
+            </tr>
+        </c:forEach>
     </table>
 </body>
 </html>

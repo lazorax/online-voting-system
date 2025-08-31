@@ -37,6 +37,7 @@
                         if (c.getPhoto() != null && c.getPhoto().length > 0) {
                     %>
                         <img src="ShowImageServlet?id=<%= c.getCandidateId() %>" alt="Candidate Photo" class="candidate-photo">
+
                     <%
                         } else {
                     %>

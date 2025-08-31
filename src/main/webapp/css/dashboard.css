@@ -25,17 +25,21 @@
     margin-bottom: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+	cursor: pointer !important;
+    
 }
 
 .card h3 {
     margin: 0 0 10px 0;
+    cursor: pointer !important;
 }
 
 .card p {
     margin: 5px 0;
+    cursor: pointer !important;
 }
  .msg-box {
-            position: fixed;          /* stays on screen even if you scroll */
+        position: fixed;          /* stays on screen even if you scroll */
         top: 80px;               /* adjust based on navbar height */
         left: 50%;
         transform: translateX(-50%);

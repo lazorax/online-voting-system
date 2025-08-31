@@ -49,7 +49,7 @@ public class ConductElectionServlet extends HttpServlet {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/onlinevoting", "root","root");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root","root");
 
             String sql = "INSERT INTO elections (title, description, election_date, no_of_candidates, no_of_voters, type, ref_code,conductor_id) VALUES (?, ?, ?, ?, ?, ?,?,?)";
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

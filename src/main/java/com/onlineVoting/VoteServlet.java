@@ -39,7 +39,8 @@ public class VoteServlet extends HttpServlet {
 
                 List<Candidate> candidates = new ArrayList<>();
                 PreparedStatement ps2 = conn.prepareStatement(
-                        "SELECT candidate_id, fullname, age, education, info FROM election_candidates WHERE election_id=?");
+                	    "SELECT candidate_id, fullname, age, education, info, image FROM election_candidates WHERE election_id=?");
+
                 ps2.setInt(1, electionId);
                 ResultSet rs2 = ps2.executeQuery();
 
@@ -50,6 +51,7 @@ public class VoteServlet extends HttpServlet {
                     c.setAge(rs2.getInt("age"));
                     c.setEducation(rs2.getString("education"));
                     c.setInfo(rs2.getString("info"));
+                    c.setPhoto(rs2.getBytes("image"));
                     candidates.add(c);
                 }
 
