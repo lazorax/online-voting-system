@@ -1,4 +1,4 @@
-🗳️ Secure Online Voting System
+🗳️ Secure Online Voting System ( Project Overview )
 
 The Secure Online Voting System is a Java-based web application that allows users to create, manage, and participate in online elections with transparency and security.
 
