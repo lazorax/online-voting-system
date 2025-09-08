@@ -39,10 +39,27 @@ This project is built by:
 ## 🖼️ Screenshots
 
 **1. Login Page**  
+
+![login](https://github.com/lazorax/online-voting-system/blob/main/src/main/screenshot/2.jpg)
+
 **2. Dashboard**  
+
+![login](https://github.com/lazorax/online-voting-system/blob/main/src/main/screenshot/3.jpg)
+
 **3. Election Creation**  
+
+![login](https://github.com/lazorax/online-voting-system/blob/main/src/main/screenshot/5.jpg)
+
+
+![login](https://github.com/lazorax/online-voting-system/blob/main/src/main/screenshot/6.jpg)
+
 **4. Voting Page**  
+
+![login](https://github.com/lazorax/online-voting-system/blob/main/src/main/screenshot/4.jpg)
+
 **5. Results Page**  
+
+![login](https://github.com/lazorax/online-voting-system/blob/main/src/main/screenshot/1.jpg)
 
 ---
 
